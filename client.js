@@ -23,7 +23,7 @@ $(document).ready(function(){ // waits for DOM to completely load
     // Add monthly salary expenses to the DOM
     var newEmployeeMonthlyExpenses = annualSalary / 12;
     var previousMonthlyExpenses = $('#monthlyExpenses').text();
-    var totalMonthlyExpenses = parseFloat(previousMonthlyExpenses) + newEmployeeMonthlyExpenses;
+    var totalMonthlyExpenses = parseInt(previousMonthlyExpenses) + newEmployeeMonthlyExpenses;
     $('#monthlyExpenses').text(totalMonthlyExpenses);
 
     // Clear out input boxes
@@ -33,8 +33,8 @@ $(document).ready(function(){ // waits for DOM to completely load
   // Adding listener for clicking delete employee buttons
   $('#employeeTableBody').on('click', '.deleteEmployeeButton', function(){
     // Removing employee salary from total
-    var deletedEmployeeSalary = $(this).parent().prev().text(); // add a column and this grabs the wrong data // points to annual salary //this is button, parent is td, prev is annual salary, asking for the text
-    var deletedEmployeeSalary = $(this).data('salary'); //
+    // var deletedEmployeeSalary = $(this).parent().prev().text(); // add a column and this grabs the wrong data // points to annual salary //this is button, parent is td, prev is annual salary, asking for the text
+    var deletedEmployeeSalary = $(this).data('salary'); // using data locks the value into annual salary
     var deletedEmployeeMonthlyExpenses = deletedEmployeeSalary / 12;
     var previousMonthlyExpenses = $('#monthlyExpenses').text(); // gets text from monthlyExpenses
     var newTotalMonthlyExpenses = previousMonthlyExpenses - deletedEmployeeMonthlyExpenses;
