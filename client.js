@@ -1,51 +1,46 @@
+$(document).ready(function(){ // waits for DOM to completely load
+  $('#submitNewEmployee').on('click', function(){ // event listener on submitNewEmployee Button
+    // Declaring variables and retrieving values from input boxes
+    var firstName = $('#firstName').val();
+    var lastName = $('#lastName').val();
+    var idNumber = $('#idNumber').val();
+    var jobTitle = $('#jobTitle').val();
+    var annualSalary = $('#annualSalary').val();
 
+    // adds new employee row to DOM
+    $('#employeeTableBody').append(
+      '<tr>' +
+        '<td>' + firstName + '</td>' +
+        '<td>' + lastName + '</td>' +
+        '<td>' + idNumber + '</td>' +
+        '<td>' + jobTitle + '</td>' +
+        '<td>' + annualSalary + '</td>' +
+        '<td><button class="deleteEmployeeButton" data-salary="' + annualSalary + '">Delete ' + firstName + '</button></td>' +
+        // data-salary // data stores data on the DOM but not on page, salary can be any name
+      '</tr>'
+      );
 
+    // Add monthly salary expenses to the DOM
+    var newEmployeeMonthlyExpenses = annualSalary / 12;
+    var previousMonthlyExpenses = $('#monthlyExpenses').text();
+    var totalMonthlyExpenses = parseFloat(previousMonthlyExpenses) + newEmployeeMonthlyExpenses;
+    $('#monthlyExpenses').text(totalMonthlyExpenses);
 
+    // Clear out input boxes
+    $('.employeeFormInput').val('');
+  });
 
+  // Adding listener for clicking delete employee buttons
+  $('#employeeTableBody').on('click', '.deleteEmployeeButton', function(){
+    // Removing employee salary from total
+    var deletedEmployeeSalary = $(this).parent().prev().text(); // add a column and this grabs the wrong data // points to annual salary //this is button, parent is td, prev is annual salary, asking for the text
+    var deletedEmployeeSalary = $(this).data('salary'); //
+    var deletedEmployeeMonthlyExpenses = deletedEmployeeSalary / 12;
+    var previousMonthlyExpenses = $('#monthlyExpenses').text(); // gets text from monthlyExpenses
+    var newTotalMonthlyExpenses = previousMonthlyExpenses - deletedEmployeeMonthlyExpenses;
+    $('#monthlyExpenses').text(newTotalMonthlyExpenses);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// <!-- Previous Start Code
-// // Waiting for html to load before running
-// $(document).ready(function(){
-//   // Creating an event listener, something to check if clickMe
-//   // has had anything happen to it. 'click' says pay attention to clicks
-//   $('#clickMe').on('click', function(){
-//     var firstName = $('#firstName').val(); // gets value in firstName input box
-//     var middleName = $('#middleName').val(); // gets value in middleName input box
-//     var lastName = $('#lastName').val(); // gets value in lastName input box
-//     var fullName = firstName + " " + middleName + " " + lastName; // builds full name
-//     var annualSalary = $('#annualSalary').val();
-//     // Adds html to the bottom (but still inside of) #nameContainer
-//     // we're using a class, because there can be many of these lines
-//     $('#nameContainer').append('<p>Full Name: ' + fullName + " " +
-//             '<button class="deleteButton">Delete</button></p>');
-//   });
-//
-//   // We can only use $('#someId') for things that exist at document ready
-//   // To select things dynamically, we use event propogation
-//   $('#nameContainer').on('click', '.deleteButton', function(){
-//     // $(this) refers to the button that was just clicked (not all of them)
-//     // console.log($(this));
-//     $(this).parent().remove();
-//   });
-// });
+    // Selecting and deleting employee row from table
+    $(this).parent().parent().remove();
+  });
+});
