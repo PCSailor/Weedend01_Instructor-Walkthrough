@@ -1,0 +1,31 @@
+body {
+  background-color: lightgrey;
+}
+#employees {
+  border-collapse: collapse;
+  width: 90%;
+  /*align: center; NEED THIS CODE */
+}
+#employees th, #employees td {
+  border:1px solid blue;
+}
+#employees fieldset {
+  width:100%;
+}
+#employees li {
+  margin:10px;
+  list-style: none;
+}
+#employees input {
+margin-left: 45px;
+text-align: left;
+}
+#employees textarea {
+  margin-left: 10px;
+  text-align: left;
+}
+#new-ul {
+  font-weight: bold;
+}
+#new-ul li {
+  display: inline;
